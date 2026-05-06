@@ -1,0 +1,28 @@
+# Single-simulation mode for the IEEE 57-bus system.
+#
+#   python -m pylectra run examples/single_case57.yaml --no-plot
+#
+# Three-phase short-circuit at bus 25, 50 ms duration. Dynamic parameters
+# are synthesised typical-machine values (see pylectra/data/cases/case57dyn.py).
+
+mode: single
+
+case_pf: case57
+case_dyn: case57dyn
+
+power_flow:
+  kind: newton
+
+solver:
+  kind: modified_euler
+  options: {}
+
+fault:
+  kind: bus_fault
+  params:
+    bus: 25
+    t_fault: 0.2
+    duration: 0.05
+
+verbose: 1
+plot: true

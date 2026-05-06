@@ -1,0 +1,29 @@
+# Single-simulation mode for the IEEE 30-bus system.
+#
+#   python -m pylectra run examples/single_case30.yaml --no-plot
+#
+# Three-phase short-circuit at bus 6, 50 ms duration. Dynamic parameters
+# are synthesised typical-machine values (see pylectra/data/cases/case30dyn.py
+# header for sources and limitations).
+
+mode: single
+
+case_pf: case30
+case_dyn: case30dyn
+
+power_flow:
+  kind: newton
+
+solver:
+  kind: modified_euler
+  options: {}
+
+fault:
+  kind: bus_fault
+  params:
+    bus: 6
+    t_fault: 0.2
+    duration: 0.05
+
+verbose: 1
+plot: true

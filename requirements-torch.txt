@@ -1,0 +1,13 @@
+# Optional torch / GPU stack for the Phase 2c torch engine.
+#
+# These are *not* part of the base requirements.txt because:
+#   * torch wheels are 200+ MB each and slow CI.
+#   * On macOS Apple Silicon, conda-shipped libomp can clash with torch's
+#     bundled OpenMP; users may need to install torch in a fresh venv
+#     (see python/PHASE_2C_NOTES.md / README §Phase 2c troubleshooting).
+#
+# Install with:
+#   pip install -r requirements-torch.txt
+
+torch>=2.0,<3.0
+torchdiffeq>=0.2,<1.0

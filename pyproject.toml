@@ -1,0 +1,84 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pylectra"
+dynamic = ["version"]
+description = "Plugin-based power-system dynamic-simulation framework (refactored MatDyn-Py)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Zongjia Long" }]
+keywords = [
+    "power-systems", "dynamic-simulation", "transient-stability",
+    "pandapower", "scipy", "plugin-architecture",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+]
+
+dependencies = [
+    "numpy>=1.24,<3.0",
+    "scipy>=1.10,<2.0",
+    "pandas>=2.0,<3.0",
+    "matplotlib>=3.7,<4.0",
+    "networkx>=3.0,<4.0",
+    "PyYAML>=6.0,<7.0",
+    "h5py>=3.8,<4.0",
+    "pyarrow>=12.0,<22.0",
+    "joblib>=1.3,<2.0",
+    "psutil>=5.9,<7.0",
+    "tqdm>=4.66,<5.0",
+]
+
+[project.optional-dependencies]
+pandapower = ["pandapower>=3.0,<4.0"]
+torch = ["torch>=2.0", "torchdiffeq>=0.2.4"]
+viz = ["pyvis>=0.3", "imageio>=2.34"]
+dev = [
+    "pytest>=7.4,<9.0",
+    "pytest-xdist>=3.5,<4.0",
+    "ruff>=0.1,<1.0",
+]
+docs = [
+    "mkdocs>=1.5,<2.0",
+    "mkdocs-material>=9.5,<10.0",
+    "mkdocs-static-i18n>=1.2,<2.0",
+    "pymdown-extensions>=10.0,<11.0",
+]
+all = [
+    "pandapower>=3.0,<4.0",
+    "torch>=2.0",
+    "torchdiffeq>=0.2.4",
+    "pyvis>=0.3",
+    "imageio>=2.34",
+]
+
+[project.scripts]
+pylectra = "pylectra.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/gridforge-py/gridforge-py"
+Issues = "https://github.com/gridforge-py/gridforge-py/issues"
+
+[tool.setuptools.dynamic]
+version = { attr = "pylectra._version.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["pylectra*"]
+exclude = ["tests*", "examples*"]
+
+[tool.setuptools.package-data]
+"pylectra._legacy" = ["**/*.py"]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: long-running integration tests (batch / CCT / CLI parity, ~30–90 s each)",
+]

@@ -1,0 +1,29 @@
+# Single-simulation mode for the IEEE 118-bus system.
+#
+#   python -m pylectra run examples/single_case118.yaml --no-plot
+#
+# Three-phase short-circuit at bus 49 (a heavily-loaded gen bus in the
+# central area), 50 ms duration. Dynamic parameters are synthesised
+# typical-machine values (see pylectra/data/cases/case118dyn.py).
+
+mode: single
+
+case_pf: case118
+case_dyn: case118dyn
+
+power_flow:
+  kind: newton
+
+solver:
+  kind: modified_euler
+  options: {}
+
+fault:
+  kind: bus_fault
+  params:
+    bus: 49
+    t_fault: 0.2
+    duration: 0.05
+
+verbose: 1
+plot: true

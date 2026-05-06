@@ -1,0 +1,33 @@
+# Critical clearing time (CCT) mode.
+#
+#   cd python && python -m pylectra run examples/cct_case39.yaml
+#
+# Bisects the fault duration on bus 16 to find the maximum clearing time
+# at which the system remains first-swing stable (max gen-angle deviation
+# from system mean < 180°).
+
+mode: cct
+
+case_pf: case39
+case_dyn: case39dyn
+
+power_flow:
+  kind: newton
+
+solver:
+  kind: modified_euler
+
+cct:
+  bus: 16
+  t_fault: 0.2
+  low: 0.01
+  high: 0.30
+  tol: 0.005
+  max_iter: 15
+  stability_filter:
+    kind: angle_stability
+    params:
+      max_dev_deg: 180.0
+
+verbose: 1
+plot: false

@@ -1,0 +1,26 @@
+{
+  "config": "examples/cct_case39.yaml",
+  "case_pf": "case39",
+  "fault_bus": 16,
+  "t_fault": 0.2,
+  "bracket_low": 0.01,
+  "bracket_high": 0.30,
+  "tol": 0.005,
+  "max_iter": 15,
+  "stability_filter": "angle_stability",
+  "max_dev_deg": 180.0,
+  "result": {
+    "cct": 0.1270,
+    "final_bracket": [0.1270, 0.1300],
+    "iterations": 7,
+    "converged": true
+  },
+  "iter_log": [
+    {"iter": 4, "duration": 0.1360, "stable": false},
+    {"iter": 5, "duration": 0.1270, "stable": true},
+    {"iter": 6, "duration": 0.1320, "stable": false},
+    {"iter": 7, "duration": 0.1300, "stable": false}
+  ],
+  "frozen_at_phase": 0,
+  "notes": "Generated from current legacy code (modified_euler solver, newton PF) before any phase-2+ rewrites. Used as the numerical anchor for Phase 5 CCT regression."
+}

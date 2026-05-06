@@ -1,0 +1,37 @@
+# Critical clearing time using the Phase 2a native engine.
+#
+#   cd python && python -m pylectra run examples/cct_case39_scipy.yaml
+#
+# When the configured solver advertises `uses_native_engine = True`, the
+# bisection skips the legacy step-snap and converges down to the requested
+# tolerance directly.  Typically ~6× faster than the legacy `modified_euler`
+# CCT and returns the same answer (0.125 s on case39 bus-16 fault).
+
+mode: cct
+
+case_pf: case39
+case_dyn: case39dyn
+
+power_flow:
+  kind: newton
+
+solver:
+  kind: scipy_dop853
+  options:
+    rtol: 1.0e-6
+    atol: 1.0e-8
+
+cct:
+  bus: 16
+  t_fault: 0.2
+  low: 0.01
+  high: 0.30
+  tol: 0.005
+  max_iter: 15
+  stability_filter:
+    kind: angle_stability
+    params:
+      max_dev_deg: 180.0
+
+verbose: 1
+plot: false

@@ -1,0 +1,50 @@
+# Batch power-flow-only mode.
+#
+#   python -m pylectra run examples/batch_pf_case39.yaml
+#
+# Generates 100 perturbed scenarios (load fluctuation + 50% chance of N-1
+# random line outage), runs ONLY the power flow on each, filters by
+# convergence + voltage band, and writes the post-PF snapshot of every
+# accepted sample to ./samples_pf/.  No dynamic data, no time-domain
+# integration -- case_dyn / solver / fault are not used in this mode.
+
+mode: batch_pf
+
+case_pf: case39
+
+power_flow:
+  kind: newton
+  options:
+    tol: 1.0e-8
+    max_it: 20
+
+scenarios:
+  count: 100
+  seed: 42
+  generators:
+    - kind: load_perturb
+      params:
+        sigma_pct: 10.0
+        clip_pct: 25.0
+    - kind: line_outage
+      params:
+        n_outages: 1
+        prob: 0.5
+
+filters:
+  - kind: pf_converged
+  - kind: voltage_range
+    params:
+      vmin: 0.90
+      vmax: 1.10
+
+output:
+  directory: ./samples_pf
+  format: hdf5
+  metadata: parquet
+  keep_failed: false
+  parallel:
+    n_jobs: auto
+    backend: loky
+
+verbose: 1

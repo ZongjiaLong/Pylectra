@@ -1,0 +1,22 @@
+# Runtime dependencies for the `pylectra` package
+# Pinned loosely (>= minimum verified version, < next major) to keep CI stable.
+
+numpy>=1.24,<3.0
+scipy>=1.10,<2.0
+matplotlib>=3.7,<4.0
+PyYAML>=6.0,<7.0
+h5py>=3.8,<4.0
+pyarrow>=12.0,<22.0
+pandas>=2.0,<3.0
+joblib>=1.3,<2.0
+psutil>=5.9,<7.0
+
+# Optional power-flow backend; pulled in for CI so the pandapower plugin is
+# exercised.  Requires pandapower >=3.0 because pylectra/cases/pp_builtin.py
+# uses the converter API path introduced in 3.0
+# (``pandapower.converter.matpower.to_mpc``) with the ``init='flat'`` kwarg.
+# Keep below pandapower 4 for compatibility with that converter API.
+pandapower>=3.0,<4.0
+
+# Test runner
+pytest>=7.4,<9.0

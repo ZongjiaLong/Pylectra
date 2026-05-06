@@ -1,0 +1,32 @@
+# Single-simulation mode using the Phase 2a native ODE engine.
+#
+#   cd python && python -m pylectra run examples/single_case39_scipy.yaml --no-plot
+#
+# Same case39 + bus-16 fault as `single_case39.yaml`, but driven by
+# scipy's adaptive DOP853 stepper.  Typically uses ~1000 steps instead of
+# the legacy 10024, with bit-comparable end-state.
+
+mode: single
+
+case_pf: case39
+case_dyn: case39dyn
+
+power_flow:
+  kind: newton
+
+solver:
+  kind: scipy_dop853
+  options:
+    rtol: 1.0e-6
+    atol: 1.0e-8
+    max_step: 0.01
+
+fault:
+  kind: bus_fault
+  params:
+    bus: 16
+    t_fault: 0.2
+    duration: 0.05
+
+verbose: 1
+plot: true

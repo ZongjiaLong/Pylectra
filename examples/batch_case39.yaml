@@ -1,0 +1,67 @@
+# Batch sample-generation mode.
+#
+#   cd python && python -m pylectra run examples/batch_case39.yaml
+#
+# Generates 10 perturbed scenarios (load fluctuation + 50 % chance of N-1
+# random line outage), runs the bus-16 fault on each and writes filtered
+# samples to ./samples/.
+
+mode: batch
+
+case_pf: case39
+case_dyn: case39dyn
+
+power_flow:
+  kind: newton
+
+solver:
+  kind: torch_euler            # 或 torch_dopri8 / torch_rk4 / torch_euler
+  options:
+#    rtol: 1.0e-6
+#    atol: 1.0e-8
+    torch_dtype: float64        # cuda 默认 float64；mps 必须 float32
+    device: auto                # auto → cuda → mps → cpu
+
+fault:
+  kind: bus_fault
+  params:
+    bus: 16
+    t_fault: 0.2
+    duration: 0.05
+
+scenarios:
+  count: 10000
+  seed: 42
+  generators:
+    - kind: load_perturb
+      params:
+        sigma_pct: 5.0
+        clip_pct: 20.0
+    - kind: line_outage
+      params:
+        n_outages: 1
+        prob: 0.5
+
+filters:
+  - kind: pf_converged
+  - kind: voltage_range
+    params:
+      vmin: 0.85
+      vmax: 1.15
+      tail_fraction: 0.5     # only check the last half (post-clearing recovery)
+  - kind: angle_stability
+    params:
+      max_dev_deg: 180.0
+  - kind: simulation_completed
+
+output:
+  directory: ./samples
+  format: hdf5
+  metadata: parquet
+  keep_failed: false
+  parallel:
+    n_jobs: auto      # 1 = serial, -1 = all cores, "auto" = recommend_n_jobs()
+    backend: loky
+
+verbose: 1
+plot: false

@@ -1,0 +1,32 @@
+# Small-signal stability check on case39 — equilibrium only, no time-domain integration.
+#
+#   python -m pylectra run examples/single_case39_smallsignal.yaml
+#   # or programmatically:
+#   from pylectra import run; out = run("examples/single_case39_smallsignal.yaml")
+#   print(out.result.small_signal.is_stable, out.result.small_signal.stability_margin)
+#
+# The analyzer builds the Jacobian J = df/dy at the post-power-flow equilibrium
+# via central finite differences and computes all eigenvalues.
+# A stable equilibrium has all eigenvalues with Re(λ) ≤ 0.
+
+mode: single
+case_pf: case39
+case_dyn: case39dyn
+
+power_flow:
+  kind: newton
+
+small_signal:
+  kind: finite_difference
+  params:
+    method: central          # central differences: O(ε²) accuracy
+    epsilon: 1.0e-6
+    drop_reference_mode: true   # ignore the near-zero rotor-angle reference eigenvalue
+    stability_tolerance: 1.0e-4
+    return_jacobian: false      # omit storing the full n×n matrix
+
+# Skip ODE integration — only the equilibrium spectrum is needed.
+skip_integration: true
+
+verbose: 1
+plot: false

@@ -1,0 +1,28 @@
+# Single-simulation mode for the WSCC 9-bus system.
+#
+#   python -m pylectra run examples/single_case9.yaml --no-plot
+#
+# Three-phase short-circuit at bus 7 (mid-tie between gen-2 and gen-3 areas),
+# 50 ms duration. Anderson-Fouad classical 3-machine dynamic data.
+
+mode: single
+
+case_pf: case9
+case_dyn: case9dyn
+
+power_flow:
+  kind: newton
+
+solver:
+  kind: modified_euler
+  options: {}
+
+fault:
+  kind: bus_fault
+  params:
+    bus: 7
+    t_fault: 0.2
+    duration: 0.05
+
+verbose: 1
+plot: true

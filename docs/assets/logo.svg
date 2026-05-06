@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer frame node markers (HUD ticks) -->
+  <path d="M4 4h6M4 4v6M60 4h-6M60 4v6M4 60h6M4 60v-6M60 60h-6M60 60v-6" stroke-width="1.6" opacity="0.55"/>
+  <!-- Vertical busbar (P stem) -->
+  <line x1="16" y1="10" x2="16" y2="58"/>
+  <!-- Tap point -->
+  <circle cx="16" cy="44" r="2.4" fill="currentColor" stroke="none"/>
+  <!-- Rotor arc (P bowl) -->
+  <path d="M16 12 A16 16 0 0 1 32 28 A16 16 0 0 1 16 44"/>
+  <!-- Sine wave inside bowl (dynamic simulation) -->
+  <path d="M14 28 Q19 21 24 28 T34 28" stroke-width="1.6" opacity="0.85"/>
+  <!-- Rotor center -->
+  <circle cx="24" cy="28" r="1.6" fill="currentColor" stroke="none"/>
+  <!-- Lower energy dot down the busbar -->
+  <circle cx="16" cy="56" r="1.4" fill="currentColor" stroke="none" opacity="0.6"/>
+</svg>

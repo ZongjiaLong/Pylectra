@@ -1,0 +1,146 @@
+site_name: Pylectra
+site_description: Plugin-based Python framework for power-system dynamic simulation and dataset generation
+site_url: https://zongjialong.github.io/Pylectra/
+repo_url: https://github.com/pylectra/pylectra
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+
+theme:
+  name: material
+  language: en
+  logo: assets/logo.svg
+  favicon: assets/favicon.svg
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.path
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+  palette:
+    # Default scheme (slate / dark) — Power-Grid HUD
+    - scheme: slate
+      primary: black
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - scheme: default
+      primary: black
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  icon:
+    repo: fontawesome/brands/github
+  font: false
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: folder
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          name: English
+          build: true
+          default: true
+        - locale: zh
+          name: 中文
+          build: true
+          nav_translations:
+            Home: 首页
+            Getting started: 入门
+            Concepts: 概念
+            Tutorials: 教程
+            How-to guides: 操作指南
+            Reference: 参考
+            FAQ: 常见问题
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - stylesheets/apple.css
+
+extra_javascript:
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/apple.js
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - getting-started/01-install-python.md
+      - getting-started/02-install-git.md
+      - getting-started/03-install-pylectra.md
+      - getting-started/04-first-simulation.md
+      - getting-started/05-understand-output.md
+  - Concepts:
+      - concepts/what-is-python-package.md
+      - concepts/what-is-virtual-env.md
+      - concepts/what-is-yaml.md
+      - concepts/what-is-plugin.md
+      - concepts/what-is-git-github.md
+      - concepts/python-vs-matlab.md
+      - concepts/architecture.md
+  - Tutorials:
+      - tutorials/01-single-run.md
+      - tutorials/02-batch-generation.md
+      - tutorials/03-cct.md
+      - tutorials/04-visualization.md
+      - tutorials/05-small-signal.md
+      - tutorials/06-gpu-acceleration.md
+  - How-to guides:
+      - how-to/add-new-generator.md
+      - how-to/add-new-fault.md
+      - how-to/add-new-scenario.md
+      - how-to/add-new-filter.md
+      - how-to/add-new-plot.md
+      - how-to/load-matpower-case.md
+      - how-to/parameter-sweep.md
+      - how-to/parallel-batch.md
+      - how-to/tune-memory.md
+      - how-to/jupyter-integration.md
+  - Reference:
+      - reference/yaml-schema.md
+      - reference/plugins-catalog.md
+      - reference/cli.md
+      - reference/glossary.md
+      - API:
+          - reference/api/run.md
+          - reference/api/registry.md
+          - reference/api/interfaces.md
+          - reference/api/small_signal.md
+          - reference/api/plotting.md
+  - FAQ: faq.md

@@ -1,0 +1,36 @@
+# Small-signal stability check + full time-domain simulation on case39.
+#
+#   python -m pylectra run examples/single_case39_smallsignal_with_sim.yaml
+#
+# Computes eigenvalues at the pre-fault equilibrium, then integrates through
+# a 50 ms bus-16 fault and stores both the eigenvalue spectrum and trajectory.
+# The modal analyzer additionally sorts modes by ascending damping ratio and
+# returns eigenvectors (useful for participation factor analysis).
+
+mode: single
+case_pf: case39
+case_dyn: case39dyn
+
+power_flow:
+  kind: newton
+
+solver:
+  kind: scipy_lsoda
+  options:
+    rtol: 1.0e-6
+    atol: 1.0e-8
+
+fault:
+  kind: bus_fault
+  params:
+    bus: 16
+    t_fault: 0.2
+    duration: 0.05
+
+small_signal:
+  kind: modal              # modal = finite_difference with eigenvectors + sorted output
+  params:
+    return_jacobian: true  # store the full Jacobian matrix in the result
+
+verbose: 1
+plot: true

@@ -1,0 +1,51 @@
+# Batch small-signal stability scan on case39.
+#
+#   python -m pylectra run examples/batch_case39_smallsignal.yaml
+#
+# Generates 200 perturbed operating points (random load + occasional line outage),
+# checks each one for small-signal stability, and keeps only the stable cases.
+# No time-domain integration is performed — suitable for rapid screening of
+# many operating conditions.
+#
+# Output: ./out_smallsignal/  — one .h5 file per accepted sample + metadata.parquet
+
+mode: batch
+case_pf: case39
+case_dyn: case39dyn
+
+power_flow:
+  kind: newton
+
+# No time-domain integration — equilibrium stability scan only.
+skip_integration: true
+
+small_signal:
+  kind: finite_difference
+  params:
+    method: forward          # n+1 calls (faster for large batches)
+    epsilon: 1.0e-6
+    drop_reference_mode: true
+    stability_tolerance: 1.0e-4
+
+scenarios:
+  count: 200
+  seed: 42
+  generators:
+    - { kind: load_perturb, params: { sigma_pct: 8.0, clip_pct: 25.0 } }
+    - { kind: line_outage,  params: { n_outages: 1, prob: 0.4 } }
+
+filters:
+  - { kind: pf_converged }
+  # Reject samples where the perturbed equilibrium is small-signal unstable.
+  # margin_max: -0.01 demands Re(λ) ≤ -0.01 for all modes (stricter than 0).
+  - { kind: small_signal_stable, params: { margin_max: 0.0 } }
+
+output:
+  directory: ./out_smallsignal
+  format: hdf5
+  metadata: parquet
+  parallel:
+    n_jobs: -1        # -1 = use all logical CPUs
+    backend: loky
+
+verbose: 1
