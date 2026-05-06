@@ -44,7 +44,7 @@ python -c "import pylectra; print(pylectra.__version__)"
 
 ```bash
 # 1. 拿源码
-git clone https://github.com/pylectra/pylectra.git
+git clone https://github.com/ZongjiaLong/Pylectra.git
 cd pylectra
 
 # 2. 创建独立环境
@@ -65,7 +65,7 @@ pip install -e ".[all]"          # 一键全装（需要约 2 GB 硬盘）
 
 ## 路径 3：下载 zip（不用 git）
 
-1. 进入 [pylectra Releases 页面](https://github.com/pylectra/pylectra/releases)
+1. 进入 [pylectra Releases 页面](https://github.com/ZongjiaLong/Pylectra/releases)
 2. 找最新版本，点 **Source code (zip)** 下载
 3. 解压到任意目录（**避开含中文或空格的路径**，如不要放在 "C:\我的项目\"）
 4. 命令行进入解压后目录：
@@ -112,7 +112,7 @@ conda install -c conda-forge jupyterlab
 python -m pylectra run examples/single_case39.yaml
 ```
 
-> 路径 1 的用户可能没有 `examples/` 目录。要么改用路径 2/3 拿到源码，要么从 [GitHub examples 文件夹](https://github.com/pylectra/pylectra/tree/main/examples) 单独下载几个 yaml。
+> 路径 1 的用户可能没有 `examples/` 目录。要么改用路径 2/3 拿到源码，要么从 [GitHub examples 文件夹](https://github.com/ZongjiaLong/Pylectra/tree/main/examples) 单独下载几个 yaml。
 
 预期看到一段日志（约 30 秒），最后会有：
 

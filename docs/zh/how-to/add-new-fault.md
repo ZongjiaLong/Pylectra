@@ -185,4 +185,4 @@ def test_bus_fault_impedance_arrays():
 ## 接下来读什么
 
 - [添加新场景生成器](add-new-scenario.md) — batch 模式的扰动器
-- [bus_fault 源码](https://github.com/pylectra/pylectra/blob/main/pylectra/faults/bus_fault.py) — 最简单的内置插件参考
+- [bus_fault 源码](https://github.com/ZongjiaLong/Pylectra/blob/main/pylectra/faults/bus_fault.py) — 最简单的内置插件参考

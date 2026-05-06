@@ -182,4 +182,4 @@ You called `np.random.*` instead of using the supplied `rng`. **Always use `rng`
 ## Next steps
 
 - [Add a new sample filter](add-new-filter.md) — same pattern.
-- [load_perturb source](https://github.com/pylectra/pylectra/blob/main/pylectra/scenarios/perturb.py) — the built-in for reference.
+- [load_perturb source](https://github.com/ZongjiaLong/Pylectra/blob/main/pylectra/scenarios/perturb.py) — the built-in for reference.

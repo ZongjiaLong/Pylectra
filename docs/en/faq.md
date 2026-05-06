@@ -2,7 +2,7 @@
 
 _Reference_
 
-Grouped by topic. Can't find your question? File one at [GitHub Issues](https://github.com/pylectra/pylectra/issues).
+Grouped by topic. Can't find your question? File one at [GitHub Issues](https://github.com/ZongjiaLong/Pylectra/issues).
 
 ## Installation
 
@@ -252,7 +252,7 @@ Refresh Jupyter and pick `Python (pylectra-env)` for new notebooks.
 
 ### Q: How do I contribute?
 
-See [CONTRIBUTING.md](https://github.com/pylectra/pylectra/blob/main/CONTRIBUTING.md). In short: fork → write one new plugin file → add a test → PR.
+See [CONTRIBUTING.md](https://github.com/ZongjiaLong/Pylectra/blob/main/CONTRIBUTING.md). In short: fork → write one new plugin file → add a test → PR.
 
 ### Q: Will the API break compatibility?
 
@@ -276,4 +276,4 @@ pip install --no-index --find-links ./pylectra-pkgs pylectra
 
 - [Tune memory](how-to/tune-memory.md) — memory-related issues.
 - [Parallel batch](how-to/parallel-batch.md) — parallel performance.
-- [GitHub Issues](https://github.com/pylectra/pylectra/issues) — file a new question.
+- [GitHub Issues](https://github.com/ZongjiaLong/Pylectra/issues) — file a new question.

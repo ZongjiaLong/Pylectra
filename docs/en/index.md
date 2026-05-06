@@ -20,7 +20,7 @@ hide:
 
 <div class="ap-hero__cta" markdown>
 [Get started](getting-started/01-install-python.md){ .md-button .md-button--primary }
-[View on GitHub](https://github.com/pylectra/pylectra){ .md-button }
+[View on GitHub](https://github.com/ZongjiaLong/Pylectra){ .md-button }
 </div>
 
 </div>

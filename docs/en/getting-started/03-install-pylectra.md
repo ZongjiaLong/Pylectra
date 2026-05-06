@@ -42,7 +42,7 @@ For users who want to read/modify source or contribute PRs.
 
 ```bash
 # 1. Clone
-git clone https://github.com/pylectra/pylectra.git
+git clone https://github.com/ZongjiaLong/Pylectra.git
 cd pylectra
 
 # 2. Create environment
@@ -63,7 +63,7 @@ pip install -e ".[all]"          # everything (~2 GB)
 
 ## Path 3 — download zip (no git)
 
-1. Open the [pylectra Releases page](https://github.com/pylectra/pylectra/releases).
+1. Open the [pylectra Releases page](https://github.com/ZongjiaLong/Pylectra/releases).
 2. Pick the latest version, click **Source code (zip)**.
 3. Unzip to a path **without spaces or non-ASCII characters**.
 4. From a terminal inside that directory:
@@ -110,7 +110,7 @@ conda install -c conda-forge jupyterlab
 python -m pylectra run examples/single_case39.yaml
 ```
 
-> Path 1 users may not have an `examples/` directory locally. Either switch to Path 2/3 to grab the source, or pull the YAMLs individually from the [GitHub examples folder](https://github.com/pylectra/pylectra/tree/main/examples).
+> Path 1 users may not have an `examples/` directory locally. Either switch to Path 2/3 to grab the source, or pull the YAMLs individually from the [GitHub examples folder](https://github.com/ZongjiaLong/Pylectra/tree/main/examples).
 
 Expected: ~30 s of log output ending with:
 

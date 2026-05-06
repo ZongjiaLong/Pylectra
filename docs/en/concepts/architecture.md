@@ -148,7 +148,7 @@ CCTRunner  ──► bisection loop ──► many SingleRunner calls (varying f
 
 A **private internal sub-package** holding the MATLAB-port code (PowerFlow / Models / Auxiliary / Solvers) translated from the original MatDyn. The current ODE main loop still depends on it. It is **transparent to end users** — you'll never see `pylectra._legacy` in the public API.
 
-A future release will rewrite the loop natively on pandapower + scipy and `_legacy/` will be removed. This is the project's openly tracked technical debt — see "Known limitations" in [CHANGELOG.md](https://github.com/pylectra/pylectra/blob/main/CHANGELOG.md).
+A future release will rewrite the loop natively on pandapower + scipy and `_legacy/` will be removed. This is the project's openly tracked technical debt — see "Known limitations" in [CHANGELOG.md](https://github.com/ZongjiaLong/Pylectra/blob/main/CHANGELOG.md).
 
 ## Plotting subsystem
 

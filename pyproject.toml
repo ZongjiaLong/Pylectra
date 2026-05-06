@@ -65,8 +65,8 @@ all = [
 pylectra = "pylectra.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/gridforge-py/gridforge-py"
-Issues = "https://github.com/gridforge-py/gridforge-py/issues"
+Homepage = "https://github.com/ZongjiaLong/Pylectra"
+Issues = "https://github.com/ZongjiaLong/Pylectra/issues"
 
 [tool.setuptools.dynamic]
 version = { attr = "pylectra._version.__version__" }

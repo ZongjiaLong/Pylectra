@@ -86,7 +86,7 @@ git config --global core.quotepath false
 随便找个目录：
 
 ```bash
-git clone https://github.com/pylectra/pylectra.git
+git clone https://github.com/ZongjiaLong/Pylectra.git
 cd pylectra
 git log --oneline | head
 ```
@@ -97,11 +97,11 @@ git log --oneline | head
 >
 > 1. 用 [GitHub 镜像](https://kkgithub.com)，把 URL 里的 `github.com` 换成 `kkgithub.com`：
 >    ```bash
->    git clone https://kkgithub.com/pylectra/pylectra.git
+>    git clone https://kkgithub.com/ZongjiaLong/Pylectra.git
 >    ```
 > 2. 或者直接走 Gitee 镜像（如果项目维护方有同步）：
 >    ```bash
->    git clone https://gitee.com/pylectra/pylectra.git
+>    git clone https://gitee.com/ZongjiaLong/Pylectra.git
 >    ```
 
 ## 配置 SSH key（可选，让以后 push 不用反复输密码）
@@ -121,7 +121,7 @@ cat ~/.ssh/id_ed25519.pub
 然后克隆时改用 SSH URL：
 
 ```bash
-git clone git@github.com:pylectra/pylectra.git
+git clone git@github.com:ZongjiaLong/Pylectra.git
 ```
 
 ## 常见问题

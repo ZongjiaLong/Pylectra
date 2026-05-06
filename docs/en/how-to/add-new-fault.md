@@ -184,4 +184,4 @@ The clear-event value is wrong. For `bus_fault` the clear sets BS back to **0** 
 ## Next steps
 
 - [Add a new scenario generator](add-new-scenario.md) — batch-mode perturbation logic.
-- [bus_fault source](https://github.com/pylectra/pylectra/blob/main/pylectra/faults/bus_fault.py) — the simplest built-in for reference.
+- [bus_fault source](https://github.com/ZongjiaLong/Pylectra/blob/main/pylectra/faults/bus_fault.py) — the simplest built-in for reference.

@@ -54,7 +54,7 @@ A ─ B ─ C ─ D ─────── G        ← main (G is the merge comm
 A single command:
 
 ```bash
-git clone https://github.com/pylectra/pylectra.git
+git clone https://github.com/ZongjiaLong/Pylectra.git
 cd pylectra
 ```
 
@@ -63,7 +63,7 @@ cd pylectra
 For just one specific release:
 
 ```bash
-git clone --branch v0.1.0 --depth 1 https://github.com/pylectra/pylectra.git
+git clone --branch v0.1.0 --depth 1 https://github.com/ZongjiaLong/Pylectra.git
 ```
 
 `--branch v0.1.0` checks out that version tag; `--depth 1` fetches only the latest commit (saves bandwidth).
@@ -95,7 +95,7 @@ If you don't have write access but want to contribute, the standard flow is:
 
 ## What can you do on GitHub?
 
-Visit [github.com/pylectra/pylectra](https://github.com/pylectra/pylectra) (illustrative URL):
+Visit [github.com/ZongjiaLong/Pylectra](https://github.com/ZongjiaLong/Pylectra) (illustrative URL):
 
 | Tab | Purpose |
 |---|---|
@@ -113,7 +113,7 @@ Yes — two paths:
 
 ### Path 1 — download a release zip
 
-Visit the [Releases](https://github.com/pylectra/pylectra/releases) page, pick the newest version, click **Source code (zip)**, unzip, then `pip install -e .` as usual.
+Visit the [Releases](https://github.com/ZongjiaLong/Pylectra/releases) page, pick the newest version, click **Source code (zip)**, unzip, then `pip install -e .` as usual.
 
 Drawback: no quick access to bug fixes that have landed on main but aren't released; upgrading means re-downloading.
 

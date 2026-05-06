@@ -183,4 +183,4 @@ def test_gen_dispatch_seed_determinism():
 ## 接下来读什么
 
 - [添加新过滤器](add-new-filter.md) — 同样的模式
-- [load_perturb 源码](https://github.com/pylectra/pylectra/blob/main/pylectra/scenarios/perturb.py) — 内置参考
+- [load_perturb 源码](https://github.com/ZongjiaLong/Pylectra/blob/main/pylectra/scenarios/perturb.py) — 内置参考

@@ -1,7 +1,7 @@
 site_name: Pylectra
 site_description: Plugin-based Python framework for power-system dynamic simulation and dataset generation
 site_url: https://zongjialong.github.io/Pylectra/
-repo_url: https://github.com/pylectra/pylectra
+repo_url: https://github.com/ZongjiaLong/Pylectra
 edit_uri: edit/main/docs/
 
 docs_dir: docs

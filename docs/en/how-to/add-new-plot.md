@@ -170,7 +170,7 @@ print(list_plugins("plot"))
 #           'rotor_angles', 'speeds', 'topology', 'violin', 'voltages']}
 ```
 
-Always check whether an existing plugin already does what you need. Each built-in is one class in [`pylectra/plotting/*.py`](https://github.com/pylectra/pylectra/tree/main/pylectra/plotting).
+Always check whether an existing plugin already does what you need. Each built-in is one class in [`pylectra/plotting/*.py`](https://github.com/ZongjiaLong/Pylectra/tree/main/pylectra/plotting).
 
 ## Pass extra kwargs from the CLI
 

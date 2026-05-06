@@ -2,7 +2,7 @@
 
 _参考资料_
 
-按主题分组，找不到答案？去 [GitHub Issues](https://github.com/pylectra/pylectra/issues) 提问。
+按主题分组，找不到答案？去 [GitHub Issues](https://github.com/ZongjiaLong/Pylectra/issues) 提问。
 
 ## 安装
 
@@ -254,7 +254,7 @@ python -m ipykernel install --user --name pylectra-env --display-name "Python (p
 
 ### Q：怎么贡献代码？
 
-见 [CONTRIBUTING.md](https://github.com/pylectra/pylectra/blob/main/CONTRIBUTING.md)。简而言之：fork → 写一个新插件文件 → 加测试 → PR。
+见 [CONTRIBUTING.md](https://github.com/ZongjiaLong/Pylectra/blob/main/CONTRIBUTING.md)。简而言之：fork → 写一个新插件文件 → 加测试 → PR。
 
 ### Q：API 会破坏向后兼容吗？
 
@@ -278,4 +278,4 @@ pip install --no-index --find-links ./pylectra-pkgs pylectra
 
 - [调内存](how-to/tune-memory.md) — 内存相关问题
 - [并行 batch](how-to/parallel-batch.md) — 并行性能
-- [GitHub Issues](https://github.com/pylectra/pylectra/issues) — 提新问题
+- [GitHub Issues](https://github.com/ZongjiaLong/Pylectra/issues) — 提新问题

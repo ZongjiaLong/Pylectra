@@ -85,7 +85,7 @@ git config --global core.quotepath false
 In any directory:
 
 ```bash
-git clone https://github.com/pylectra/pylectra.git
+git clone https://github.com/ZongjiaLong/Pylectra.git
 cd pylectra
 git log --oneline | head
 ```
@@ -109,7 +109,7 @@ cat ~/.ssh/id_ed25519.pub
 Then clone via the SSH URL:
 
 ```bash
-git clone git@github.com:pylectra/pylectra.git
+git clone git@github.com:ZongjiaLong/Pylectra.git
 ```
 
 ## FAQ

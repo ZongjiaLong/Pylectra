@@ -171,7 +171,7 @@ print(list_plugins("plot"))
 #           'rotor_angles', 'speeds', 'topology', 'violin', 'voltages']}
 ```
 
-写新插件前**先看现成的能不能用**。每个内置都是 [`pylectra/plotting/*.py`](https://github.com/pylectra/pylectra/tree/main/pylectra/plotting) 下的一个类。
+写新插件前**先看现成的能不能用**。每个内置都是 [`pylectra/plotting/*.py`](https://github.com/ZongjiaLong/Pylectra/tree/main/pylectra/plotting) 下的一个类。
 
 ## 在 CLI 里传额外参数
 

@@ -151,7 +151,7 @@ CCTRunner  ──► 二分循环 ──► 反复调 SingleRunner（不同 faul
 这是个**私有内部子包**，存放从原 MatDyn MATLAB 直译过来的 PowerFlow / Models / Auxiliary / Solvers 老代码。
 当前的 ODE 主循环还依赖它。它对**最终用户透明**——你不会在公开 API 里见到 `pylectra._legacy`。
 
-未来的版本会用 pandapower + scipy 完全原生重写，届时 `_legacy/` 会被删除。这是公开的技术债，写在 [CHANGELOG.md](https://github.com/pylectra/pylectra/blob/main/CHANGELOG.md) 的"Known limitations"里。
+未来的版本会用 pandapower + scipy 完全原生重写，届时 `_legacy/` 会被删除。这是公开的技术债，写在 [CHANGELOG.md](https://github.com/ZongjiaLong/Pylectra/blob/main/CHANGELOG.md) 的"Known limitations"里。
 
 ## 可视化系统
 

@@ -4,7 +4,7 @@
 [![Docs CN](https://img.shields.io/badge/中文文档-在线-blue)](https://zongjialong.github.io/Pylectra/zh/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](#license--attribution)
 
-A plugin-based Python framework for **power-system dynamic simulation** and large-scale **dataset generation**. Every component — generator model, exciter, governor, ODE solver, fault, scenario, sample filter, plot — is a registered plugin selectable by name from a YAML config file. Adding a new one means creating a single file and applying the `@register` decorator.
+A plugin-based Python framework for **power-system dynamic simulation**, **small-signal stability analysis**, and large-scale **dataset generation**. Every component — generator model, exciter, governor, PSS, ODE solver, power-flow backend, fault, scenario, sample filter, small-signal analyzer, plot — is a registered plugin selectable by name from a YAML config file. Adding a new one means creating a single file and applying the `@register` decorator.
 
 📖 **Read the docs online**: **[zongjialong.github.io/Pylectra](https://zongjialong.github.io/Pylectra/)** (English) · **[中文](https://zongjialong.github.io/Pylectra/zh/)**
 
@@ -14,13 +14,17 @@ The site has a searchable, themed view of everything in [`docs/`](docs/) (Englis
 
 ## Highlights
 
-- **Three run modes**, one schema:
-  - `single` — deterministic transient simulation
-  - `batch` — generate N perturbed scenarios → HDF5 + Parquet metadata
+- **Four run modes**, one schema:
+  - `single` — deterministic transient simulation (optionally combined with small-signal analysis)
+  - `batch` — generate N perturbed scenarios with full time-domain integration → HDF5 + Parquet metadata
+  - `batch_pf` — power-flow-only batch generation (no dynamics; for steady-state datasets)
   - `cct` — bisection search for critical clearing time
-- **Pluggable ODE solvers**: SciPy (`scipy_rk45`, `scipy_dop853`, `scipy_lsoda`, `scipy_bdf`, `scipy_radau`, …) plus optional GPU-accelerated `torchdiffeq` (`torch_dopri5`, `torch_dopri8`, `torch_rk4`) with automatic CUDA → MPS → CPU fallback.
+- **Small-signal stability analysis**: builds the Jacobian at the post-power-flow equilibrium via finite differences, computes eigenvalues, damping ratios, and stability margin. Available standalone (`skip_integration: true`) or alongside a single transient run.
+- **Pluggable ODE solvers**: SciPy (`scipy_rk45`, `scipy_dop853`, `scipy_lsoda`, `scipy_bdf`, `scipy_radau`, …) plus optional GPU-accelerated `torchdiffeq` (`torch_dopri5`, `torch_dopri8`, `torch_rk4`) with automatic CUDA → MPS → CPU fallback. A batched torch engine runs many scenarios on one GPU pass.
 - **Power-flow backends**: `pandapower` or built-in Newton.
+- **Generator subsystem plugins**: generator models, exciters (AVR), governors, and PSS (power system stabilizers) — all hot-swappable per machine via YAML.
 - **Fault library**: bus three-phase fault, line trip / reclose, load step, composite cascading events.
+- **Sample filters**: power-flow convergence, voltage band, angle stability, simulation completion, small-signal stability — applied during batch generation to keep only useful samples.
 - **Parallel batch execution** via `joblib` (loky / multiprocessing / threading).
 - **Publication-quality plotting** in Nature style — rotor angles, phase portraits, network topology, batch result violins/heatmaps, CCT sweeps.
 - **Refactored from MatDyn**, with the legacy fixed-step solvers and MATPOWER-style power flow vendored under `pylectra/_legacy/` for backward compatibility.
@@ -65,7 +69,7 @@ The native MatDyn-translated cases (39 and 68) work without pandapower.
 
 ```bash
 # 1. Clone the repository
-git clone <this-repo-url> pylectra
+git clone https://github.com/ZongjiaLong/Pylectra.git pylectra
 cd pylectra
 
 # 2. Create a clean environment (recommended)
@@ -102,14 +106,23 @@ More detailed install notes (Conda tips, troubleshooting `h5py` /
 # single deterministic run — IEEE-39, 3-cycle bus-16 fault
 python -m pylectra run examples/single_case39.yaml
 
+# small-signal stability check at the equilibrium (no time-domain integration)
+python -m pylectra run examples/single_case39_smallsignal.yaml
+
 # generate a batch of perturbed samples → HDF5 + Parquet metadata
 python -m pylectra run examples/batch_case39.yaml
+
+# power-flow-only batch (steady-state dataset, no dynamics)
+python -m pylectra run examples/batch_pf_case39.yaml
 
 # compute critical clearing time on bus 16
 python -m pylectra run examples/cct_case39.yaml
 
 # list all registered plugins
 python -m pylectra info
+
+# inspect detected hardware (CPU / CUDA / MPS) for solver placement
+python -m pylectra info --hardware
 ```
 
 ### Python API
@@ -138,10 +151,10 @@ results = run(configs)   # list of SimulationOutput
 
 ## YAML configuration
 
-All three run modes share the same top-level schema:
+All four run modes share the same top-level schema:
 
 ```yaml
-mode: single                # single | batch | cct
+mode: single                # single | batch | batch_pf | cct
 
 case_pf:  case39            # power-flow case name (pandapower loadcase)
 case_dyn: case39dyn         # dynamic parameters file
@@ -208,6 +221,57 @@ cct:
   max_iter: 20
   stability_filter: { kind: angle_stability, params: { max_dev_deg: 180.0 } }
 ```
+
+### Batch power-flow-only mode
+
+```yaml
+mode: batch_pf                # case_dyn / solver / fault are unused
+
+case_pf: case39
+power_flow:
+  kind: newton
+  options: { tol: 1.0e-8, max_it: 20 }
+
+scenarios:
+  count: 100
+  seed: 42
+  generators:
+    - { kind: load_perturb, params: { sigma_pct: 10.0, clip_pct: 25.0 } }
+    - { kind: line_outage,  params: { n_outages: 1, prob: 0.5 } }
+
+filters:
+  - { kind: pf_converged }
+  - { kind: voltage_range, params: { vmin: 0.90, vmax: 1.10 } }
+
+output:
+  directory: ./samples_pf
+  format: hdf5
+  metadata: parquet
+```
+
+### Small-signal analysis
+
+Add a `small_signal:` block to a `single`-mode config. Set `skip_integration: true`
+to compute eigenvalues at the equilibrium without running the time-domain ODE.
+
+```yaml
+mode: single
+case_pf: case39
+case_dyn: case39dyn
+
+small_signal:
+  kind: finite_difference
+  params:
+    method: central
+    epsilon: 1.0e-6
+    drop_reference_mode: true
+    stability_tolerance: 1.0e-4
+
+skip_integration: true
+```
+
+Results are exposed as `out.result.small_signal` with `.is_stable`,
+`.eigenvalues`, `.damping_ratios`, and `.stability_margin`.
 
 Full schema reference (defaults, ranges, every field):
 [`docs/en/reference/yaml-schema.md`](docs/en/reference/yaml-schema.md).
