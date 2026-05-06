@@ -1,0 +1,25 @@
+{#-
+  Override of mkdocs-material's partials/source-info.html.
+  Replaces the client-side GitHub API call (which is rate-limited and
+  flaky for unauthenticated visitors) with shields.io badges that are
+  cached and proxied server-side, so the star/fork counts always render.
+-#}
+{% set _slug = config.repo_url | replace("https://github.com/", "") | replace("http://github.com/", "") | trim("/") %}
+<ul class="md-source__facts">
+  <li class="md-source__fact md-source__fact--version">
+    <img
+      src="https://img.shields.io/github/stars/{{ _slug }}?style=flat&label=%E2%98%85&color=14b8a6&labelColor=111"
+      alt="GitHub stars"
+      loading="lazy"
+      decoding="async"
+    />
+  </li>
+  <li class="md-source__fact md-source__fact--version">
+    <img
+      src="https://img.shields.io/github/forks/{{ _slug }}?style=flat&label=forks&color=14b8a6&labelColor=111"
+      alt="GitHub forks"
+      loading="lazy"
+      decoding="async"
+    />
+  </li>
+</ul>
